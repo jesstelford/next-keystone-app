@@ -1,24 +1,27 @@
 {
   "name": "with-apollo",
-  "version": "2.0.0",
+  "description": "Static Sites with Next.js + KeystoneJS",
+  "private": true,
+  "version": "0.0.0",
   "scripts": {
     "dev": "next",
-    "build": "next build",
-    "start": "next start"
+    "build": "rm -rf .next && NODE_ENV=production next build",
+    "start": "NODE_ENV=production next start"
   },
   "dependencies": {
-    "@apollo/react-hooks": "3.0.0",
-    "@apollo/react-ssr": "3.0.0",
+    "@apollo/react-hooks": "3.1.3",
+    "@apollo/react-ssr": "3.1.3",
     "apollo-cache-inmemory": "1.6.3",
     "apollo-client": "2.6.4",
-    "apollo-link-http": "1.5.15",
+    "apollo-link-http": "1.5.16",
+    "delay": "^4.3.0",
     "graphql": "^14.0.2",
     "graphql-tag": "2.10.1",
     "isomorphic-unfetch": "^3.0.0",
-    "next": "latest",
+    "next": "9.1.5-canary.8",
     "prop-types": "^15.6.2",
-    "react": "^16.7.0",
-    "react-dom": "^16.7.0"
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0"
   },
   "license": "ISC"
 }

@@ -1,59 +1,43 @@
-# Apollo Example
-
-## Deploy your own
-
-Deploy the example using [ZEIT Now](https://zeit.co/now):
-
-[![Deploy with ZEIT Now](https://zeit.co/button)](https://zeit.co/new/project?template=https://github.com/zeit/next.js/tree/canary/examples/with-apollo)
-
-_Live Example: https://next-with-apollo.now.sh_
+# Static Sites with Next.js & KeystoneJS
 
 ## How to use
 
-### Using `create-next-app`
+### Deploy your Keystone instance
 
-Execute [`create-next-app`](https://github.com/zeit/next.js/tree/canary/packages/create-next-app) with [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/) or [npx](https://github.com/zkat/npx#readme) to bootstrap the example:
+This demo is based on the [Keystone JAMStack Plus starter kit](https://github.com/keystonejs/keystone-jamstack-plus).
 
-```bash
-npx create-next-app --example with-apollo with-apollo-app
-# or
-yarn create next-app --example with-apollo with-apollo-app
+Click the Deploy button there to get an instance up and running.
+
+### Update your Keystone URL
+
+In this codebase, edit `lib/apollo.js` and alter the `KEYSTONE_URI` to point to
+your Keystone instances API (note this should be the url ending in
+`/admin/api`).
+
+### Add some data
+
+In your Keystone instance's Admin UI, create a couple of pages.
+
+### Build Static Pages
+
+```
+yarn build
 ```
 
-### Download manually
+This will automatically build static html for every Page you created in Keystone
+(plus the index page).
 
-Download the example:
+### Try it out
 
-```bash
-curl https://codeload.github.com/zeit/next.js/tar.gz/canary | tar -xz --strip=2 next.js-canary/examples/with-apollo
-cd with-apollo
+```
+yarn start
 ```
 
-Install it and run:
+Visit [`http://localhost:3000`](http://localhost:3000) to see the static
+generated pages.
 
-```bash
-npm install
-npm run dev
-# or
-yarn
-yarn dev
-```
+## Credits
 
-Deploy it to the cloud with [now](https://zeit.co/now) ([download](https://zeit.co/download)):
-
-```bash
-now
-```
-
-## The idea behind the example
-
-[Apollo](https://www.apollographql.com/client/) is a GraphQL client that allows you to easily query the exact data you need from a GraphQL server. In addition to fetching and mutating data, Apollo analyzes your queries and their results to construct a client-side cache of your data, which is kept up to date as further queries and mutations are run, fetching more results from the server.
-
-In this simple example, we integrate Apollo seamlessly with Next by wrapping our `pages/index.js` inside a [higher-order component (HOC)](https://facebook.github.io/react/docs/higher-order-components.html). Using the HOC pattern we're able to pass down a central store of query result data created by Apollo into our React component hierarchy defined inside each page of our Next application.
-
-On initial page load, while on the server and inside `getInitialProps`, we invoke the Apollo method, [`getDataFromTree`](https://www.apollographql.com/docs/react/api/react-ssr/#getdatafromtree). This method returns a promise; at the point in which the promise resolves, our Apollo Client store is completely initialized.
-
-This example relies on [graph.cool](https://www.graph.cool) for its GraphQL backend.
-
-Note: Do not be alarmed that you see two renders being executed. Apollo recursively traverses the React render tree looking for Apollo query components. When it has done that, it fetches all these queries and then passes the result to a cache. This cache is then used to render the data on the server side (another React render).
-https://www.apollographql.com/docs/react/api/react-ssr/#getdatafromtree
+- This demo is based on the [`with-apollo` Next.js example](https://github.com/zeit/next.js/tree/canary/examples/with-apollo).
+- Wouldn't be possible without the Next.js team's hard work on [`unstable_getStaticPaths` & `unstable_getStaticProps`](https://github.com/zeit/next.js/issues/9524)!
+- The [KeystoneJS team](https://keystonejs.com) for a great headless CMS
