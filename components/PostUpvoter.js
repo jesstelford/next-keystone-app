@@ -1,40 +1,50 @@
-import React from 'react'
-import { useMutation } from '@apollo/react-hooks'
+import React, { useCallback } from 'react'
+import { useQuery, useMutation } from '@apollo/react-hooks'
 import gql from 'graphql-tag'
 
-const UPDATE_POST_MUTATION = gql`
-  mutation updatePost($id: ID!, $votes: Int) {
-    updatePost(id: $id, votes: $votes) {
-      __typename
+const CLAP_QUERY = gql`
+  query getClaps($path: String) {
+    allPages(where: { path: $path }) {
       id
-      votes
+      claps
+    }
+  }
+`;
+
+const CLAP_MUTATION = gql`
+  mutation clap($path: String!) {
+    clap(path: $path) {
+      id
+      claps
     }
   }
 `
 
-export default function PostUpvoter({ votes, id }) {
-  const [updatePost] = useMutation(UPDATE_POST_MUTATION)
+export default function PostUpvoter({ path }) {
+  const { data, loading } = useQuery(CLAP_QUERY, { variables: { path } });
+  const [clap] = useMutation(CLAP_MUTATION)
 
-  const upvotePost = () => {
-    updatePost({
+  const pageData = !loading && data && data.allPages && data.allPages.length ? data.allPages[0] : undefined;
+
+  const upvotePost = useCallback(() => {
+    clap({
       variables: {
-        id,
-        votes: votes + 1,
+        path,
       },
       optimisticResponse: {
         __typename: 'Mutation',
-        updatePost: {
-          __typename: 'Post',
-          id,
-          votes: votes + 1,
+        clap: {
+          __typename: 'Page',
+          id: pageData.id,
+          claps: pageData.claps + 1,
         },
       },
     })
-  }
+  }, [pageData, clap, path]);
 
   return (
-    <button onClick={() => upvotePost()}>
-      {votes}
+    <button disabled={!pageData} onClick={() => upvotePost()}>
+      👏 {pageData ? pageData.claps : '-'}
       <style jsx>{`
         button {
           background-color: transparent;
@@ -44,15 +54,8 @@ export default function PostUpvoter({ votes, id }) {
         button:active {
           background-color: transparent;
         }
-        button:before {
-          align-self: center;
-          border-color: transparent transparent #000000 transparent;
-          border-style: solid;
-          border-width: 0 4px 6px 4px;
-          content: '';
-          height: 0;
-          margin-right: 5px;
-          width: 0;
+        button:hover {
+          cursor: pointer;
         }
       `}</style>
     </button>

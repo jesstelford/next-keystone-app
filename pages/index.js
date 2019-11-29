@@ -43,7 +43,7 @@ const IndexPage = props => (
       </a>{' '}
       to pull data from a{' '}
       <a
-        href="https://github.com/zeit/next.js/issues/9524"
+        href="https://keystonejs.com"
         target="_blank"
         rel="noopener noreferrer"
       >

@@ -1,6 +1,6 @@
 import gql from 'graphql-tag'
 
-//import PostUpvoter from '../../components/PostUpvoter'
+import PostUpvoter from '../../components/PostUpvoter'
 import App from '../../components/App'
 import Header from '../../components/Header'
 import { withApollo, initApolloClient } from '../../lib/apollo'
@@ -35,7 +35,6 @@ export async function unstable_getStaticProps({ params }) {
           id
           path
           name
-          claps
         }
       }
     `,
@@ -57,11 +56,15 @@ export async function unstable_getStaticProps({ params }) {
 const Post = props => (
   <App>
     <Header />
+    <h1>{props.name}</h1>
     <p>
-      Path: {props.path}<br />
-      Name: {props.name}<br />
-      Claps: {props.claps}<br />
-      {/*<PostUpvoter id={props.id} votes={props.claps} />*/}
+      Clap for this: <PostUpvoter path={props.path} />
+    </p>
+    <p>
+      Tech virtual drone online browser platform through in a system. But stream software offline. Professor install angel sector anywhere create at components smart. Document fab developers encryption smartphone powered, bespoke blockstack edit atoms. Companies a storage adopters. Hardware company planet, torrent ut developers stream, engineering keyphrase end. Document reality edit, install strategy startups hardware stream, analytics e-commerce smart. Privacy news data policies analytics documents.
+    </p>
+    <p>
+  Crytocurrency bespoke decentralized. In a smart home. Companies privacy build at activists data. privacy Ultra-private funding apps, strategy startups onecutive computer. In startups developers bot precision anywhere entrepreneurs. Visionary fab bespoke strong in cloud. Despite policies ability bespoke strong deal cryptocurrency. Now forecast security edit. Services circuit company read, at labs smartphone deal direct. Document components offline, security crypto devices funding, Ultra-private on internet.
     </p>
   </App>
 )
