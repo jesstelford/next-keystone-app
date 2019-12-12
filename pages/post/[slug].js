@@ -8,6 +8,7 @@ import { withApollo, initApolloClient } from '../../lib/apollo'
 // `getStaticPaths` allows the user to return a list of parameters to
 // render to HTML at build time.
 export async function unstable_getStaticPaths(...args) {
+  console.log('unstable_getStaticPaths');
   const apolloClient = initApolloClient();
   const { data, error } = await apolloClient.query({
     query: gql`
@@ -27,6 +28,7 @@ export async function unstable_getStaticPaths(...args) {
 
 // getStaticProps is only called server-side
 export async function unstable_getStaticProps({ params }) {
+  console.log('unstable_getStaticProps');
   const apolloClient = initApolloClient();
   const { data, error } = await apolloClient.query({
     query: gql`
