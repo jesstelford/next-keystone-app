@@ -12,7 +12,7 @@ export default ({ children }) => (
         padding: 25px 50px;
       }
       a {
-        color: #22bad9;
+        color: #003fef;
       }
       p {
         font-size: 14px;
